@@ -12,13 +12,12 @@ jobs:
       - name: Build
         run: |
           unzip -o Cin-suivii-main.zip
-          mv Cin-suivii-main Cinesuivi
-          echo '{"project_info":{"project_number":"123","project_id":"d","storage_bucket":"d.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:abc","android_client_info":{"package_name":"com.cinesuivi"}},"oauth_client":[],"api_key":[{"current_key":"AIzaDummy"}],"services":{}}],"configuration_version":"1"}' > Cinesuivi/app/google-services.json
-          cd Cinesuivi
+          echo '{"project_info":{"project_number":"123","project_id":"d","storage_bucket":"d.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:abc","android_client_info":{"package_name":"com.cinesuivi"}},"oauth_client":[],"api_key":[{"current_key":"AIzaDummy"}],"services":{}}],"configuration_version":"1"}' > Cin-suivii-main/app/google-services.json
+          cd Cin-suivii-main
           chmod +x gradlew
           ./gradlew assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Cinesuivi-APK
-          path: Cinesuivi/app/build/outputs/apk/debug/*.apk
+          path: Cin-suivii-main/app/build/outputs/apk/debug/*.apk
