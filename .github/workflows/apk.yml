@@ -11,13 +11,15 @@ jobs:
           java-version: '17'
       - name: Build
         run: |
-          unzip -o Cin-suivii-main.zip
-          echo '{"project_info":{"project_number":"123","project_id":"d","storage_bucket":"d.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:abc","android_client_info":{"package_name":"com.cinesuivi"}},"oauth_client":[],"api_key":[{"current_key":"AIzaDummy"}],"services":{}}],"configuration_version":"1"}' > Cin-suivii-main/app/google-services.json
-          cd Cin-suivii-main
+          unzip -o *.zip
+          FOLDER=$( find . -name "gradlew" -type f | head -n 1 | xargs dirname)
+          echo "Dossier: $FOLDER"
+          echo '{"project_info":{"project_number":"123","project_id":"d","storage_bucket":"d.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:abc","android_client_info":{"package_name":"com.cinesuivi"}},"oauth_client":[],"api_key":[{"current_key":"AIzaDummy"}],"services":{}}],"configuration_version":"1"}' > $FOLDER/app/google-services.json
+          cd $FOLDER
           chmod +x gradlew
           ./gradlew assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Cinesuivi-APK
-          path: Cin-suivii-main/app/build/outputs/apk/debug/*.apk
+          path: "**/app/build/outputs/apk/debug/*.apk
